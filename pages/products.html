@@ -17,7 +17,12 @@
 </head>
 <body>
 
-  <div class="topbar">Free shipping on orders over ₹999</div>
+  <div class="topbar" aria-live="polite">
+    <div class="topbar-track">
+      <span class="topbar-msg is-active">Free shipping on orders over ₹499</span>
+      <span class="topbar-msg">Buy products worth ₹399, Get 1 Free product</span>
+    </div>
+  </div>
 
   <header class="nav">
     <div class="container nav-inner">
@@ -89,7 +94,6 @@
           <button class="chip active" data-category="all">All</button>
           <button class="chip" data-category="Claw Clips">Claw Clips</button>
           <button class="chip" data-category="Hair Clips">Hair Clips</button>
-          <button class="chip" data-category="Bows">Bows</button>
           <button class="chip" data-category="Scrunchies">Scrunchies</button>
           <button class="chip" data-category="Hampers">Hampers</button>
         </div>
@@ -103,7 +107,7 @@
         <div class="offer">
           <div>
             <h2>Spin to unlock special prices</h2>
-            <p>Win a claw clip for just <strong>₹15</strong>, a hamper for <strong>₹99</strong>, or up to 25% off your order.</p>
+            <p>Win a claw clip for just <strong>₹15</strong>, a hamper for <strong>₹99</strong>, or up to 90% off your order.</p>
           </div>
           <a href="spin.html" class="btn btn-primary open-wheel">Spin the wheel</a>
         </div>
@@ -123,9 +127,9 @@
       <div class="container">
         <h2>Contact us</h2>
         <div class="contact-cards">
-          <div><h3>Email</h3><a href="mailto:hello@pastelhoopes.com">hello@pastelhoopes.com</a></div>
-          <div><h3>Instagram</h3><a href="https://instagram.com/pastelhoopes" target="_blank" rel="noopener">@pastelhoopes</a></div>
-          <div><h3>Visit our store</h3><p>Add your store address here</p></div>
+          <div><h3>Email</h3><a href="mailto:info.pastelhopes@gmail.com">info.pastelhopes@gmail.com</a></div>
+          <div><h3>Instagram</h3><a href="https://www.instagram.com/pastel_hoopes_?utm_source=ig_web_button_share_sheet&srtk=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">@pastel_hoopes_</a></div>
+          <div><h3>Visit our store</h3><p>Ghanta ghar market, Chandrawal road, near clock tower in front of Attraction chahat makeover, Kamla Nagar, Delhi - 110007</p></div>
         </div>
       </div>
     </section>
@@ -146,6 +150,12 @@
       <div>
         <h3>Account</h3>
         <a href="#" class="open-signup">Sign up</a>
+      </div>
+      <div class="footer-contact">
+        <h3>Contact</h3>
+        <p><a href="tel:+919211805755">+91 92118 05755</a></p>
+        <p><a href="mailto:info.pastelhopes@gmail.com">info.pastelhopes@gmail.com</a></p>
+        <p class="muted footer-address">Ghanta ghar market, Chandrawal road, near clock tower in front of Attraction chahat makeover, Kamla Nagar, Delhi - 110007</p>
       </div>
     </div>
     <div class="container copyright">© <span id="year"></span> Pastel Hoopes. All rights reserved.</div>
@@ -227,5 +237,23 @@
   <script src="../js/leads.js"></script>
   <script src="../js/signup.js"></script>
   <script src="../js/scratch.js"></script>
+
+  <script>
+  (function () {
+    var msgs = Array.prototype.slice.call(document.querySelectorAll(".topbar-msg"));
+    if (msgs.length < 2) return;
+    var i = 0;
+    setInterval(function () {
+      var cur = msgs[i];
+      var next = msgs[(i + 1) % msgs.length];
+      cur.classList.remove("is-active");
+      cur.classList.add("is-leaving");
+      next.classList.remove("is-leaving");
+      next.classList.add("is-active");
+      setTimeout(function () { cur.classList.remove("is-leaving"); }, 400);
+      i = (i + 1) % msgs.length;
+    }, 3500);
+  })();
+  </script>
 </body>
 </html>
