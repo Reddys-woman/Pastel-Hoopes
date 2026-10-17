@@ -1,21 +1,67 @@
-/* ========== Side decoration: botanical vines in the empty left/right margins ==========
-   Nothing else on the page is changed. To remove it, delete the <link> to this file.
-   If you change the width of .container, update --decor-container below to match. */
+/* ========== Side décor — botanical border ==========
+   Leaf + bloom clusters + burgundy roses in the gutters.
+   Left scrolls continuously down, right continuously up. */
 :root {
   --decor-container: 1160px;
-  --decor-w: clamp(0px, calc((100vw - var(--decor-container)) / 2 - 24px), 260px);
-  --decor-x: calc(((100vw - var(--decor-container)) / 2 - var(--decor-w)) / 2); /* centres the vine inside the margin */
+  --decor-w: clamp(72px, calc((100vw - var(--decor-container)) / 2 - 20px), 200px);
+  --decor-x: max(8px, calc(((100vw - var(--decor-container)) / 2 - var(--decor-w)) / 2));
 }
-body { position: relative; }
 
-@media (min-width: 1320px) {
-  body::before, body::after {
-    content: ""; position: absolute; z-index: 0; pointer-events: none;
-    top: 110px; bottom: 0;                       /* starts below the top bar + navbar */
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+@media (min-width: 1240px) {
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    z-index: 0;
+    pointer-events: none;
+    top: 96px;
+    /* tall strip so we can translate half and loop seamlessly */
+    height: 300vh;
     width: var(--decor-w);
-    background-repeat: repeat-y; background-size: 100% auto; background-position: center top;
-    opacity: .95;
+    background-repeat: repeat-y;
+    background-size: 100% auto;
+    background-position: center top;
+    opacity: 0.9;
+    will-change: transform;
   }
-  body::before { left: var(--decor-x);  background-image: url("../public/images/decor/vine-left.svg"); }
-  body::after  { right: var(--decor-x); background-image: url("../public/images/decor/vine-right.svg"); }
+
+  /* LEFT — continuous downward motion */
+  body::before {
+    left: var(--decor-x);
+    background-image: url("../public/images/decor/vine-left.svg");
+    animation: decor-down 55s linear infinite;
+  }
+
+  /* RIGHT — continuous upward motion */
+  body::after {
+    right: var(--decor-x);
+    background-image: url("../public/images/decor/vine-right.svg");
+    animation: decor-up 55s linear infinite;
+  }
+}
+
+/* translate by half the strip height → one clean cycle with repeat-y */
+@keyframes decor-down {
+  from { transform: translate3d(0, -50%, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes decor-up {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(0, -50%, 0); }
+}
+
+main,
+.nav,
+.topbar,
+footer,
+.modal,
+.overlay {
+  position: relative;
+  z-index: 1;
 }
