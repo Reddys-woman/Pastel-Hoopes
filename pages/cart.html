@@ -104,6 +104,22 @@
     </section>
   </main>
 
+
+  <!-- Traction stats (hackathon / analytics) -->
+  <section class="site-stats" aria-label="Site traction">
+    <div class="container site-stats-inner">
+      <div class="stat-pill">
+        <span class="stat-label">You're visitor</span>
+        <strong class="stat-num" id="stat-visitors">—</strong>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-pill">
+        <span class="stat-label">Sign-ups</span>
+        <strong class="stat-num" id="stat-signups">—</strong>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
     <div class="container footer-grid">
       <div>
@@ -135,6 +151,7 @@
   </footer>
 
   <script src="../js/cart.js"></script>
+  <script src="../js/stats.js"></script>
   <script>
   document.getElementById("year").textContent = new Date().getFullYear();
   (function () {

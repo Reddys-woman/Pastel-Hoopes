@@ -574,3 +574,47 @@ h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); }
   padding: 14px 28px;
   font-size: .95rem;
 }
+
+
+/* Traction stats bar (above footer) */
+.site-stats {
+  padding: 28px 0 8px;
+}
+.site-stats-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  padding: 18px 22px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(249,228,230,.7), rgba(244,198,207,.45));
+  border: 1px solid var(--line);
+}
+.stat-pill {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.stat-label {
+  font-size: .9rem;
+  color: var(--burgundy-soft);
+}
+.stat-num {
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  font-weight: 400;
+  color: var(--burgundy);
+  letter-spacing: -.01em;
+  min-width: 1.5ch;
+}
+.stat-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--line);
+}
+@media (max-width: 520px) {
+  .site-stats-inner { gap: 10px 16px; padding: 16px; }
+  .stat-num { font-size: 1.35rem; }
+  .stat-divider { display: none; }
+}
