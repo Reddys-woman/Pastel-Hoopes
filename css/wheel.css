@@ -1,0 +1,14 @@
+/* ========== Spin & Win popup ========== */
+.wheel-modal { position: fixed; inset: 0; z-index: 200; background: rgba(59,34,41,.55); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 16px; animation: fadeIn .3s; }
+.wheel-modal[hidden] { display: none; }
+@keyframes fadeIn { from { opacity: 0; } }
+.wheel-box { position: relative; background: var(--cream); border-radius: 30px; padding: 36px 28px 30px; width: min(440px, 100%); max-height: 94vh; overflow-y: auto; text-align: center; box-shadow: 0 30px 80px rgba(0,0,0,.25); }
+.wheel-box h2 { margin-bottom: 4px; }
+.wheel-close { position: absolute; top: 14px; right: 18px; font-size: 1.8rem; line-height: 1; color: var(--burgundy); }
+.wheel-stage { position: relative; width: min(340px, 78vw); margin: 22px auto; }
+.wheel-stage canvas { width: 100%; height: auto; border-radius: 50%; border: 6px solid var(--burgundy); box-shadow: 0 14px 34px rgba(107,31,51,.25); transition: transform 5s cubic-bezier(.12,.65,.1,1); }
+.wheel-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); z-index: 2; border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 26px solid var(--burgundy); filter: drop-shadow(0 2px 2px rgba(0,0,0,.25)); }
+#spin-btn:disabled { opacity: .6; cursor: default; transform: none; }
+.result-code { display: inline-block; margin: 14px 0; padding: 10px 24px; border: 2px dashed var(--burgundy); border-radius: 14px; font-family: var(--serif); font-size: 1.5rem; letter-spacing: .08em; color: var(--burgundy); background: var(--blush); }
+.small { font-size: .9rem; margin-bottom: 20px; }
+.result-actions { display: flex; flex-direction: column; gap: 10px; }
