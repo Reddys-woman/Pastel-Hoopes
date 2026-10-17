@@ -1,0 +1,21 @@
+/* ========== Side decoration: botanical vines in the empty left/right margins ==========
+   Nothing else on the page is changed. To remove it, delete the <link> to this file.
+   If you change the width of .container, update --decor-container below to match. */
+:root {
+  --decor-container: 1160px;
+  --decor-w: clamp(0px, calc((100vw - var(--decor-container)) / 2 - 24px), 260px);
+  --decor-x: calc(((100vw - var(--decor-container)) / 2 - var(--decor-w)) / 2); /* centres the vine inside the margin */
+}
+body { position: relative; }
+
+@media (min-width: 1320px) {
+  body::before, body::after {
+    content: ""; position: absolute; z-index: 0; pointer-events: none;
+    top: 110px; bottom: 0;                       /* starts below the top bar + navbar */
+    width: var(--decor-w);
+    background-repeat: repeat-y; background-size: 100% auto; background-position: center top;
+    opacity: .95;
+  }
+  body::before { left: var(--decor-x);  background-image: url("../public/images/decor/vine-left.svg"); }
+  body::after  { right: var(--decor-x); background-image: url("../public/images/decor/vine-right.svg"); }
+}
