@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cart | Pastel Hoopes</title>
+  <meta name="description" content="Your cart — order via WhatsApp.">
+  <link rel="icon" href="../public/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/decor.css">
+</head>
+<body>
+
+  <div class="topbar" aria-live="polite">
+    <div class="topbar-track">
+      <span class="topbar-msg is-active">Free shipping on orders over ₹499</span>
+      <span class="topbar-msg">Buy products worth ₹399, Get 1 Free product</span>
+    </div>
+  </div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="products.html" class="brand"><img src="../public/images/logo.png" alt="Pastel Hoopes logo"><span>Pastel Hoopes</span></a>
+      <nav id="menu" class="menu" aria-label="Main">
+        <a href="products.html#shop">Shop</a>
+        <a href="products.html#offers">Offers</a>
+        <a href="products.html#contact">Contact us</a>
+        <a href="products.html#about">About us</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-link" aria-label="Cart" aria-current="page">Cart <span id="cart-count" class="badge">0</span></a>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section cart-page">
+      <div class="container" id="cart-root">
+        <div class="section-head">
+          <h1>Your cart</h1>
+        </div>
+
+        <!-- EMPTY -->
+        <div id="cart-empty" class="cart-empty" hidden>
+          <p class="muted">Your cart is empty.</p>
+          <a href="products.html#shop" class="btn btn-primary">Shop the collection</a>
+        </div>
+
+        <!-- FILLED -->
+        <div id="cart-filled" class="cart-layout" hidden>
+          <div class="cart-list-wrap">
+            <div id="cart-items" class="cart-items"></div>
+          </div>
+
+          <aside class="cart-summary">
+            <h2>Order summary</h2>
+
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <strong id="cart-subtotal">₹0</strong>
+            </div>
+            <div class="summary-row" id="cart-coupon-row" hidden>
+              <span>Coupon <em id="cart-coupon-code"></em></span>
+              <span class="muted">Applied</span>
+            </div>
+            <div class="summary-row summary-discount" id="cart-discount-row" hidden>
+              <span>Discount</span>
+              <strong id="cart-discount">−₹0</strong>
+            </div>
+            <div class="summary-row summary-total">
+              <span>Total</span>
+              <strong id="cart-total">₹0</strong>
+            </div>
+
+            <fieldset class="fulfillment">
+              <legend>How would you like to get your order?</legend>
+              <label class="fulfill-option">
+                <input type="radio" name="fulfillment" value="pickup" checked>
+                <span>
+                  <strong>Self pick-up</strong>
+                  <small>Collect from our Kamla Nagar store</small>
+                </span>
+              </label>
+              <label class="fulfill-option">
+                <input type="radio" name="fulfillment" value="delivery">
+                <span>
+                  <strong>Home delivery</strong>
+                  <small>We’ll confirm charges &amp; address on WhatsApp</small>
+                </span>
+              </label>
+            </fieldset>
+
+            <button type="button" id="order-whatsapp" class="btn btn-primary btn-wa">
+              Order via WhatsApp
+            </button>
+            <p class="muted small cart-note">Opens WhatsApp with your order. We’ll confirm delivery charges, address and timing there.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="products.html" class="brand"><img src="../public/images/logo.png" alt=""><span>Pastel Hoopes</span></a>
+        <p class="muted">Cute hair accessories, made for everyday.</p>
+        <p class="footer-quote">“Sometimes all you need, is just a Hope 🌷!” <span class="footer-quote-attr">~Pastel Hoopes</span></p>
+      </div>
+      <div>
+        <h3>Shop</h3>
+        <a href="products.html#shop">All products</a>
+        <a href="products.html#offers">Spin &amp; Win</a>
+        <a href="products.html#offers">Scratch &amp; Win</a>
+        <a href="cart.html">Cart</a>
+      </div>
+      <div>
+        <h3>Other resources</h3>
+        <a href="products.html">Sign up</a>
+        <a href="products.html#about">About us</a>
+        <a href="products.html#shop">Our collection</a>
+      </div>
+      <div class="footer-contact">
+        <h3>Contact</h3>
+        <p><a href="tel:+919211805755">+91 92118 05755</a></p>
+        <p><a href="mailto:info.pastelhopes@gmail.com">info.pastelhopes@gmail.com</a></p>
+        <p class="muted footer-address">Ghanta ghar market, Chandrawal road, near clock tower in front of Attraction chahat makeover, Kamla Nagar, Delhi - 110007</p>
+      </div>
+    </div>
+    <div class="container copyright">© <span id="year"></span> Pastel Hoopes. All rights reserved.</div>
+  </footer>
+
+  <script src="../js/cart.js"></script>
+  <script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  (function () {
+    var menu = document.getElementById("menu");
+    var toggle = document.getElementById("menu-toggle");
+    if (toggle && menu) {
+      toggle.addEventListener("click", function () {
+        var open = menu.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", open);
+      });
+    }
+    var msgs = Array.prototype.slice.call(document.querySelectorAll(".topbar-msg"));
+    if (msgs.length < 2) return;
+    var i = 0;
+    setInterval(function () {
+      var cur = msgs[i];
+      var next = msgs[(i + 1) % msgs.length];
+      cur.classList.remove("is-active");
+      cur.classList.add("is-leaving");
+      next.classList.remove("is-leaving");
+      next.classList.add("is-active");
+      setTimeout(function () { cur.classList.remove("is-leaving"); }, 400);
+      i = (i + 1) % msgs.length;
+    }, 3500);
+  })();
+  </script>
+</body>
+</html>

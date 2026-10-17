@@ -11,7 +11,7 @@
     { label: "FREE PRODUCT",  weight: 0,  code: "FREEPICK",  text: "a free product",               bg: "#8C3A4F", light: true },
     { label: "25% OFF",       weight: 6,  code: "HOOPES25",  text: "25% off your order",           bg: "#F4C6CF" },
     { label: "CLAW CLIP ₹15", weight: 12, code: "CLAW15",    text: "a claw clip for just ₹15",     bg: "#F9E4E6" },
-    { label: "HAMPER ₹99",    weight: 12, code: "HAMPER99",  text: "a hamper for just ₹99",        bg: "#F4C6CF" }
+    { label: "CLAW CLIP ₹15", weight: 12, code: "CLAW15B",   text: "a claw clip for just ₹15",     bg: "#F4C6CF" }
   ];
   const STORE_KEY = "pastelHoopesSpin";
   const modal = document.getElementById("wheel-modal");

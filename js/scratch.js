@@ -9,7 +9,7 @@
     { label: "20% OFF",           weight: 10, code: "SCRATCH20",       text: "20% off your order" },
     { label: "25% OFF",           weight: 5,  code: "SCRATCH25",       text: "25% off your order" },
     { label: "CLAW CLIP ₹15",     weight: 10, code: "SCRATCHCLAW15",   text: "a claw clip for just ₹15" },
-    { label: "HAMPER ₹99",        weight: 10, code: "SCRATCHHAMPER99", text: "a hamper for just ₹99" },
+    { label: "CLAW CLIP ₹15",     weight: 10, code: "SCRATCHCLAW15B",  text: "a claw clip for just ₹15" },
     { label: "Better luck next time :)", weight: 20, code: null, text: null }
   ];
   const STORE_KEY = "pastelHoopesScratch"; // saves only the prize code, no customer details
