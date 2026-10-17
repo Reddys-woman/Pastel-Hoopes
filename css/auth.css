@@ -1,0 +1,18 @@
+/* ========== Sign-up modal (reuses .wheel-modal / .wheel-box from wheel.css) ========== */
+.signup-box { text-align: left; }
+.signup-box h2, .signup-box > .muted { text-align: center; }
+.signup-box > .muted { margin: 6px 0 22px; }
+.signup-form { display: flex; flex-direction: column; gap: 16px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: .9rem; font-weight: 500; color: var(--burgundy); }
+.field input { font: inherit; padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 14px; background: #fff; color: var(--text); transition: border-color .2s, box-shadow .2s; width: 100%; }
+.field input:focus { outline: none; border-color: var(--burgundy); box-shadow: 0 0 0 3px rgba(244,198,207,.7); }
+.field input[aria-invalid="true"] { border-color: #B3263E; }
+.field-error { min-height: 1.1em; font-size: .82rem; color: #B3263E; }
+.signup-form .btn { width: 100%; border: 0; font-size: 1rem; }
+.signup-form .btn:disabled { opacity: .6; cursor: default; transform: none; }
+.signup-status { min-height: 1.2em; text-align: center; font-size: .9rem; color: #B3263E; }
+.signup-form .small { text-align: center; margin: 0; }
+.link-btn { display: block; margin: 14px auto 0; font-size: .9rem; color: var(--burgundy-soft); text-decoration: underline; text-underline-offset: 3px; }
+.link-btn:hover { color: var(--burgundy); }
+@media (max-width: 480px) { .signup-box { padding: 32px 20px 24px; } .field input { font-size: 16px; } /* 16px stops iPhone zoom */ }

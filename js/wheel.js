@@ -80,13 +80,8 @@
   document.getElementById("keep-shopping").addEventListener("click", closeModal);
   modal.addEventListener("click", e => { if (e.target === modal && !spinning) closeModal(); });
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !modal.hidden && !spinning) closeModal(); });
-  document.querySelectorAll(".open-wheel").forEach(el => el.addEventListener("click", e => { e.preventDefault(); openModal(); }));
-
   drawWheel();
 
-  // Auto-open after 5-10 seconds (only if they haven't spun or closed it already)
-  const delay = 5000 + Math.random() * 5000;
-  setTimeout(() => {
-    if (!localStorage.getItem(STORE_KEY) && !sessionStorage.getItem("pastelHoopesWheelClosed") && modal.hidden) openModal();
-  }, delay);
+  // The sign-up modal (js/signup.js) decides when to open the wheel.
+  window.PastelWheel = { open: openModal, hasSpun: () => !!localStorage.getItem(STORE_KEY) };
 })();

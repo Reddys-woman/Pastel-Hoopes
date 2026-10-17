@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/wheel.css">
+  <link rel="stylesheet" href="../css/auth.css">
 </head>
 <body>
 
@@ -137,6 +138,30 @@
     <div class="container copyright">© <span id="year"></span> Pastel Hoopes. All rights reserved.</div>
   </footer>
 
+  <div id="signup-modal" class="wheel-modal" hidden role="dialog" aria-modal="true" aria-labelledby="signup-title">
+    <div class="wheel-box signup-box">
+      <button id="signup-close" class="wheel-close" aria-label="Close sign-up">×</button>
+      <h2 id="signup-title">Spin &amp; Win</h2>
+      <p class="muted">Tell us where to send your prize, then spin the wheel for a discount or a special-price accessory.</p>
+      <form id="signup-form" class="signup-form" novalidate>
+        <div class="field">
+          <label for="signup-name">Name</label>
+          <input id="signup-name" name="name" type="text" autocomplete="name" placeholder="Your name" maxlength="60" required>
+          <span class="field-error" id="signup-name-error"></span>
+        </div>
+        <div class="field">
+          <label for="signup-phone">WhatsApp number</label>
+          <input id="signup-phone" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="98765 43210" maxlength="20" required>
+          <span class="field-error" id="signup-phone-error"></span>
+        </div>
+        <button id="signup-submit" type="submit" class="btn btn-primary">Sign Up &amp; Spin</button>
+        <p id="signup-status" class="signup-status" role="alert"></p>
+        <p class="small muted">We'll message you on WhatsApp about your prize and offers.</p>
+      </form>
+      <button id="signup-later" class="link-btn">Maybe later, let me browse</button>
+    </div>
+  </div>
+
   <div id="wheel-modal" class="wheel-modal" hidden role="dialog" aria-modal="true" aria-labelledby="wheel-title">
     <div class="wheel-box">
       <button id="wheel-close" class="wheel-close" aria-label="Close">×</button>
@@ -164,5 +189,7 @@
   <script src="../js/cart.js"></script>
   <script src="../js/products.js"></script>
   <script src="../js/wheel.js"></script>
+  <script src="../js/leads.js"></script>
+  <script src="../js/signup.js"></script>
 </body>
 </html>
