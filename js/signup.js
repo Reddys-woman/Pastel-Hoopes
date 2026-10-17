@@ -9,12 +9,9 @@
   const phoneError = document.getElementById("signup-phone-error");
   const status = document.getElementById("signup-status");
   const submitBtn = document.getElementById("signup-submit");
-  const CLOSED_KEY = "pastelHoopesSignupClosed"; // session only: remembers "maybe later", holds no customer data
   let lastFocus = null, busy = false;
 
   function openSignup() {
-    // Returning visitors who already spun just see their prize.
-    if (window.PastelWheel && PastelWheel.hasSpun()) return PastelWheel.open();
     lastFocus = document.activeElement;
     modal.hidden = false;
     document.body.style.overflow = "hidden";
@@ -22,8 +19,7 @@
   }
   function closeSignup(remember) {
     modal.hidden = true;
-    document.body.style.overflow = "";
-    if (remember) sessionStorage.setItem(CLOSED_KEY, "1");
+    document.body.style.overflow = document.getElementById("wheel-modal").hidden ? "" : "hidden";
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
@@ -57,7 +53,7 @@
       await PastelLeads.submit({ name, whatsapp: "+91" + phone });
       form.reset();
       closeSignup(false);
-      PastelWheel.open();
+      PastelWheel.unlock(); // wheel is now unlocked, they press "Spin the wheel"
     } catch (err) {
       status.textContent = err.message || "Something went wrong. Please try again.";
     } finally {
@@ -70,13 +66,11 @@
   modal.addEventListener("click", e => { if (e.target === modal && !busy) closeSignup(true); });
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !modal.hidden && !busy) closeSignup(true); });
 
-  // Every "Spin" button on the page opens the sign-up first
-  document.querySelectorAll(".open-wheel").forEach(el =>
-    el.addEventListener("click", e => { e.preventDefault(); openSignup(); }));
+  // "Sign up" buttons (nav + footer). If they already signed up, show the wheel instead.
+  document.querySelectorAll(".open-signup").forEach(el => el.addEventListener("click", e => {
+    e.preventDefault();
+    if (PastelWheel.isSignedUp()) PastelWheel.open(); else openSignup();
+  }));
 
-  // Auto-open after 5-10 seconds, unless they've spun or said "maybe later"
-  setTimeout(() => {
-    const wheelOpen = !document.getElementById("wheel-modal").hidden;
-    if (!sessionStorage.getItem(CLOSED_KEY) && !PastelWheel.hasSpun() && modal.hidden && !wheelOpen) openSignup();
-  }, 5000 + Math.random() * 5000);
+  window.PastelSignup = { open: openSignup };
 })();

@@ -137,3 +137,7 @@ h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); }
 .contact-cards h3 { font-size: 1.05rem; margin-bottom: 8px; }
 .contact-cards a:hover { text-decoration: underline; color: var(--burgundy); }
 @media (max-width: 720px) { .info-grid, .contact-cards { grid-template-columns: 1fr; } }
+
+/* Nav sign-up button */
+.nav-signup { padding: 9px 22px; border: 0; font-size: .95rem; }
+@media (max-width: 520px) { .brand span { display: none; } .nav-signup { padding: 8px 16px; } .nav-actions { gap: 8px; } }

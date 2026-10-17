@@ -1,18 +1,40 @@
-// ===== DATABASE LAYER (separate from the form UI) =====
-// js/signup.js calls PastelLeads.submit({ name, whatsapp }) and nothing else.
-// When Supabase is ready, replace the body of submit() with your insert call.
-// Do NOT save customer details in localStorage.
+
+const SUPABASE_URL = "https://tolntrbxyowrppfzroyv.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__uaHEaG-mipb1hVWljZKhQ_zMwp2YAA";
+
 const PastelLeads = {
-  // For previewing the wheel flow on your own computer only.
-  // Keep this false: when true, nothing is saved anywhere.
-  DEV_SKIP_SAVE: false,
-
   async submit(lead) {
-    if (this.DEV_SKIP_SAVE) return;
+    const response = await fetch(
+      `${SUPABASE_URL}/functions/v1/register-lead`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_PUBLISHABLE_KEY,
+          "Authorization": `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+        },
+        body: JSON.stringify({
+          name: lead.name,
+          whatsapp: lead.whatsapp
+        })
+      }
+    );
 
-    // TODO (later): save the lead to Supabase, for example:
-    //   const { error } = await supabaseClient.from("leads").insert({ name: lead.name, whatsapp: lead.whatsapp });
-    //   if (error) throw new Error("We couldn't save your details. Please try again.");
-    throw new Error("Sign-up isn't connected yet, so we can't save your details right now.");
+    let result;
+    try {
+      result = await response.json();
+    } catch {
+      throw new Error("Unexpected server response. Please try again.");
+    }
+
+    if (!response.ok || !result.success) {
+      throw new Error(
+        result.error || "We couldn't save your details. Please try again."
+      );
+    }
+
+    return result;
   }
 };
+
+window.PastelLeads = PastelLeads;

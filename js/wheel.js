@@ -20,7 +20,17 @@
   const playBox = document.getElementById("wheel-play");
   const resultBox = document.getElementById("wheel-result");
   const seg = 360 / PRIZES.length;
+  const SIGNED_KEY = "pastelHoopesSignedUp"; // just a "1" flag, no customer details
   let rotation = 0, spinning = false;
+  const isSignedUp = () => localStorage.getItem(SIGNED_KEY) === "1";
+
+  // Locked until the visitor has signed up
+  function updateGate() {
+    const ok = isSignedUp();
+    spinBtn.textContent = ok ? "Spin the wheel" : "Sign up to spin";
+    document.getElementById("wheel-lock").textContent = ok ? "You're in! Give the wheel a spin." : "Sign up first to unlock your spin.";
+    canvas.classList.toggle("locked", !ok);
+  }
 
   function drawWheel() {
     const ctx = canvas.getContext("2d"), c = canvas.width / 2, r = c - 4, a = (Math.PI * 2) / PRIZES.length;
@@ -53,6 +63,7 @@
   }
 
   function openModal() {
+    updateGate();
     const saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
     if (saved) showResult(PRIZES.find(p => p.code === saved.code) || PRIZES[0], true);
     modal.hidden = false; document.body.style.overflow = "hidden";
@@ -64,6 +75,7 @@
 
   spinBtn.addEventListener("click", () => {
     if (spinning) return;
+    if (!isSignedUp()) { PastelSignup.open(); return; }
     spinning = true; spinBtn.disabled = true; spinBtn.textContent = "Spinning…";
     const i = pickPrize();
     const jitter = (Math.random() - 0.5) * seg * 0.6;
@@ -79,9 +91,21 @@
   document.getElementById("wheel-close").addEventListener("click", closeModal);
   document.getElementById("keep-shopping").addEventListener("click", closeModal);
   modal.addEventListener("click", e => { if (e.target === modal && !spinning) closeModal(); });
-  document.addEventListener("keydown", e => { if (e.key === "Escape" && !modal.hidden && !spinning) closeModal(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !modal.hidden && !spinning && document.getElementById("signup-modal").hidden) closeModal(); });
   drawWheel();
 
-  // The sign-up modal (js/signup.js) decides when to open the wheel.
-  window.PastelWheel = { open: openModal, hasSpun: () => !!localStorage.getItem(STORE_KEY) };
+  // Spin buttons anywhere on the page open the wheel
+  document.querySelectorAll(".open-wheel").forEach(el => el.addEventListener("click", e => { e.preventDefault(); openModal(); }));
+
+  // Auto-open after 5-10 seconds (unless they already spun or closed it)
+  setTimeout(() => {
+    if (!localStorage.getItem(STORE_KEY) && !sessionStorage.getItem("pastelHoopesWheelClosed") && modal.hidden && document.getElementById("signup-modal").hidden) openModal();
+  }, 5000 + Math.random() * 5000);
+
+  window.PastelWheel = {
+    open: openModal,
+    hasSpun: () => !!localStorage.getItem(STORE_KEY),
+    isSignedUp,
+    unlock() { localStorage.setItem(SIGNED_KEY, "1"); updateGate(); }
+  };
 })();

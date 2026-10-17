@@ -12,3 +12,6 @@
 .result-code { display: inline-block; margin: 14px 0; padding: 10px 24px; border: 2px dashed var(--burgundy); border-radius: 14px; font-family: var(--serif); font-size: 1.5rem; letter-spacing: .08em; color: var(--burgundy); background: var(--blush); }
 .small { font-size: .9rem; margin-bottom: 20px; }
 .result-actions { display: flex; flex-direction: column; gap: 10px; }
+
+.wheel-lock { color: var(--burgundy-soft); font-size: .95rem; margin-top: 4px; }
+.wheel-stage canvas.locked { filter: saturate(.75); }

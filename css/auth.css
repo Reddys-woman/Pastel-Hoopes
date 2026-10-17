@@ -16,3 +16,5 @@
 .link-btn { display: block; margin: 14px auto 0; font-size: .9rem; color: var(--burgundy-soft); text-decoration: underline; text-underline-offset: 3px; }
 .link-btn:hover { color: var(--burgundy); }
 @media (max-width: 480px) { .signup-box { padding: 32px 20px 24px; } .field input { font-size: 16px; } /* 16px stops iPhone zoom */ }
+
+#signup-modal { z-index: 210; } /* sits on top of the wheel */

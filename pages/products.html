@@ -27,6 +27,7 @@
         <a href="#about">About us</a>
       </nav>
       <div class="nav-actions">
+        <button class="btn btn-primary nav-signup open-signup">Sign up</button>
         <a href="cart.html" class="cart-link" aria-label="Cart">Cart <span id="cart-count" class="badge">0</span></a>
         <button id="menu-toggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
       </div>
@@ -57,7 +58,7 @@
         <div class="wheel-icon" aria-hidden="true"></div>
         <div class="spin-text">
           <h2>Spin &amp; Win</h2>
-          <p>Spin the wheel for a discount or a special-price accessory, then create an account to claim your prize.</p>
+          <p>Sign up, then spin the wheel for a discount or a special-price accessory.</p>
         </div>
         <a href="spin.html" class="btn btn-light open-wheel">Spin now</a>
       </div>
@@ -130,9 +131,7 @@
       </div>
       <div>
         <h3>Account</h3>
-        <a href="login.html">Log in</a>
-        <a href="signup.html">Sign up</a>
-        <a href="profile.html">My profile</a>
+        <a href="#" class="open-signup">Sign up</a>
       </div>
     </div>
     <div class="container copyright">© <span id="year"></span> Pastel Hoopes. All rights reserved.</div>
@@ -141,8 +140,8 @@
   <div id="signup-modal" class="wheel-modal" hidden role="dialog" aria-modal="true" aria-labelledby="signup-title">
     <div class="wheel-box signup-box">
       <button id="signup-close" class="wheel-close" aria-label="Close sign-up">×</button>
-      <h2 id="signup-title">Spin &amp; Win</h2>
-      <p class="muted">Tell us where to send your prize, then spin the wheel for a discount or a special-price accessory.</p>
+      <h2 id="signup-title">Sign up to spin</h2>
+      <p class="muted">Add your details to unlock your spin. We'll send your prize on WhatsApp.</p>
       <form id="signup-form" class="signup-form" novalidate>
         <div class="field">
           <label for="signup-name">Name</label>
@@ -167,7 +166,7 @@
       <button id="wheel-close" class="wheel-close" aria-label="Close">×</button>
       <div id="wheel-play">
         <h2 id="wheel-title">Spin &amp; Win</h2>
-        <p class="muted">One spin per customer. Good luck!</p>
+        <p id="wheel-lock" class="wheel-lock"></p>
         <div class="wheel-stage"><div class="wheel-pointer"></div><canvas id="wheel-canvas" width="460" height="460"></canvas></div>
         <button id="spin-btn" class="btn btn-primary">Spin the wheel</button>
       </div>
@@ -175,10 +174,9 @@
         <h2 id="result-title">You won!</h2>
         <p id="result-text"></p>
         <div id="result-code" class="result-code"></div>
-        <p class="muted small">Create a free account to save your prize. Show your code in store or use it at checkout.</p>
+        <p class="muted small">Show this code at our store or use it at checkout.</p>
         <div class="result-actions">
-          <a href="signup.html" class="btn btn-primary">Create account &amp; claim</a>
-          <button id="keep-shopping" class="btn btn-ghost">Keep shopping</button>
+          <button id="keep-shopping" class="btn btn-primary">Keep shopping</button>
         </div>
       </div>
     </div>
