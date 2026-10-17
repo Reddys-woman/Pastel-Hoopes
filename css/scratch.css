@@ -1,0 +1,54 @@
+/* ========== Scratch & Win (reuses .wheel-modal / .wheel-box from wheel.css) ========== */
+.scratch-banner { padding-top: 20px; }
+.scratch-inner { background: var(--blush); color: var(--burgundy); }
+.scratch-inner h2 { color: var(--burgundy); }
+.scratch-inner .spin-text p { color: var(--text); }
+/* Animated mini card: a coin scratches the cover off row by row, then it starts over */
+.scratch-icon { position: relative; width: 84px; height: 84px; flex-shrink: 0; overflow: hidden; border-radius: 20px; border: 3px solid var(--burgundy);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 84'%3E%3Crect width='84' height='84' fill='%23FFF8F2'/%3E%3Ctext x='42' y='46' font-family='Georgia,serif' font-size='26' fill='%236B1F33' text-anchor='middle'%3E15%25%3C/text%3E%3Ctext x='42' y='62' font-family='Georgia,serif' font-size='11' letter-spacing='2' fill='%238C3A4F' text-anchor='middle'%3EOFF%3C/text%3E%3C/svg%3E") center / cover; }
+.scratch-icon::before { /* the scratch-off cover */
+  content: "✦"; position: absolute; inset: 0; display: grid; place-items: center; font-size: 1.8rem; color: var(--burgundy);
+  background: linear-gradient(135deg, #F4C6CF, #FBE3E8 50%, #E8B4BF);
+  -webkit-mask-image: linear-gradient(#000, #000), linear-gradient(#000, #000), linear-gradient(#000, #000), linear-gradient(#000, #000);
+          mask-image: linear-gradient(#000, #000), linear-gradient(#000, #000), linear-gradient(#000, #000), linear-gradient(#000, #000);
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: 100% 0%, 0% 33.333%, 100% 66.667%, 0% 100%;
+          mask-position: 100% 0%, 0% 33.333%, 100% 66.667%, 0% 100%;
+  -webkit-mask-size: 100% 25%, 100% 25%, 100% 25%, 100% 25%;
+          mask-size: 100% 25%, 100% 25%, 100% 25%, 100% 25%;
+  animation: scratch-reveal 7s linear infinite, scratch-cover 7s linear infinite; }
+.scratch-icon::after { /* the coin */
+  content: ""; position: absolute; top: 0; left: 0; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--burgundy);
+  background: radial-gradient(circle at 30% 30%, #fff, #E8B4BF); box-shadow: 0 2px 4px rgba(107,31,51,.35);
+  transform: translate(-8px, 2.5px); opacity: 0; animation: scratch-coin 7s linear infinite; }
+
+@keyframes scratch-reveal {
+  0%, 8%   { -webkit-mask-size: 100% 25%, 100% 25%, 100% 25%, 100% 25%; mask-size: 100% 25%, 100% 25%, 100% 25%, 100% 25%; }
+  24%      { -webkit-mask-size: 0% 25%, 100% 25%, 100% 25%, 100% 25%;   mask-size: 0% 25%, 100% 25%, 100% 25%, 100% 25%; }
+  25%      { -webkit-mask-size: 0% 25%, 100% 25%, 100% 25%, 100% 25%;   mask-size: 0% 25%, 100% 25%, 100% 25%, 100% 25%; }
+  40%      { -webkit-mask-size: 0% 25%, 0% 25%, 100% 25%, 100% 25%;     mask-size: 0% 25%, 0% 25%, 100% 25%, 100% 25%; }
+  41%      { -webkit-mask-size: 0% 25%, 0% 25%, 100% 25%, 100% 25%;     mask-size: 0% 25%, 0% 25%, 100% 25%, 100% 25%; }
+  56%      { -webkit-mask-size: 0% 25%, 0% 25%, 0% 25%, 100% 25%;       mask-size: 0% 25%, 0% 25%, 0% 25%, 100% 25%; }
+  57%      { -webkit-mask-size: 0% 25%, 0% 25%, 0% 25%, 100% 25%;       mask-size: 0% 25%, 0% 25%, 0% 25%, 100% 25%; }
+  72%, 89% { -webkit-mask-size: 0% 25%, 0% 25%, 0% 25%, 0% 25%;         mask-size: 0% 25%, 0% 25%, 0% 25%, 0% 25%; }
+  90%, 100%{ -webkit-mask-size: 100% 25%, 100% 25%, 100% 25%, 100% 25%; mask-size: 100% 25%, 100% 25%, 100% 25%, 100% 25%; }
+}
+@keyframes scratch-cover { 0%, 89.9% { opacity: 1; } 90% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes scratch-coin {
+  0%, 7% { transform: translate(-8px, 2.5px);  opacity: 0; }
+  8%     { transform: translate(-8px, 2.5px);  opacity: 1; }
+  24%    { transform: translate(76px, 2.5px); }
+  25%    { transform: translate(76px, 23.5px); }
+  40%    { transform: translate(-8px, 23.5px); }
+  41%    { transform: translate(-8px, 44.5px); }
+  56%    { transform: translate(76px, 44.5px); }
+  57%    { transform: translate(76px, 65.5px); }
+  72%    { transform: translate(-8px, 65.5px); opacity: 1; }
+  76%, 100% { transform: translate(-8px, 65.5px); opacity: 0; }
+}
+
+.scratch-card { position: relative; width: min(340px, 78vw); aspect-ratio: 5 / 3; margin: 22px auto; border-radius: 20px; overflow: hidden; border: 4px solid var(--burgundy); box-shadow: 0 14px 34px rgba(107,31,51,.2); background: var(--cream); }
+.scratch-prize { position: absolute; inset: 0; display: grid; place-items: center; padding: 14px; text-align: center; font-family: var(--serif); font-size: clamp(1.4rem, 6vw, 2rem); line-height: 1.2; color: var(--burgundy); }
+.scratch-card canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; transition: opacity .7s; }
+.scratch-card canvas.locked { pointer-events: none; cursor: default; }
+.scratch-card canvas.done { opacity: 0; pointer-events: none; }
