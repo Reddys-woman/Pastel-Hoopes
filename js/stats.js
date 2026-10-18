@@ -1,6 +1,5 @@
-// Site traction counters (shared across all visitors — no backend of yours required).
-// Primary: abacus.jasoncameron.dev (public countapi-style API)
-// Visitor: +1 once per browser session. Sign-ups / spins / scratches: +1 on each event.
+// Site traction counters (shared across all visitors).
+// API: abacus.jasoncameron.dev
 (function () {
   const NS = "pastel-hoopes-hackathon";
   const BASE = "https://abacus.jasoncameron.dev";
@@ -14,9 +13,13 @@
 
   async function get(name) {
     const res = await fetch(BASE + "/get/" + NS + "/" + name, { mode: "cors" });
-    if (!res.ok) throw new Error("get failed " + res.status);
+    if (!res.ok) {
+      // Key may not exist yet
+      return 0;
+    }
     const data = await res.json();
-    return Number(data.value);
+    if (data.error) return 0;
+    return Number(data.value) || 0;
   }
 
   function format(n) {
@@ -24,24 +27,31 @@
     return Number(n).toLocaleString("en-IN");
   }
 
-  function paint(visits, signups, spins, scratches) {
-    const v = document.getElementById("stat-visitors");
-    const s = document.getElementById("stat-signups");
-    const sp = document.getElementById("stat-spins");
-    const sc = document.getElementById("stat-scratches");
-    if (v) v.textContent = format(visits);
-    if (s) s.textContent = format(signups);
-    if (sp) sp.textContent = format(spins);
-    if (sc) sc.textContent = format(scratches);
+  function paint(partial) {
+    if (partial.visits != null) {
+      const el = document.getElementById("stat-visitors");
+      if (el) el.textContent = format(partial.visits);
+    }
+    if (partial.signups != null) {
+      const el = document.getElementById("stat-signups");
+      if (el) el.textContent = format(partial.signups);
+    }
+    if (partial.spins != null) {
+      const el = document.getElementById("stat-spins");
+      if (el) el.textContent = format(partial.spins);
+    }
+    if (partial.scratches != null) {
+      const el = document.getElementById("stat-scratches");
+      if (el) el.textContent = format(partial.scratches);
+    }
   }
 
   async function refreshAll() {
-    let visits = null, signups = null, spins = null, scratches = null;
-    try { visits = await get("visits"); } catch (_) { visits = 0; }
-    try { signups = await get("signups"); } catch (_) { signups = 0; }
-    try { spins = await get("spins"); } catch (_) { spins = 0; }
-    try { scratches = await get("scratches"); } catch (_) { scratches = 0; }
-    paint(visits, signups, spins, scratches);
+    const visits = await get("visits").catch(() => 0);
+    const signups = await get("signups").catch(() => 0);
+    const spins = await get("spins").catch(() => 0);
+    const scratches = await get("scratches").catch(() => 0);
+    paint({ visits, signups, spins, scratches });
     return { visits, signups, spins, scratches };
   }
 
@@ -50,7 +60,8 @@
     try {
       if (!sessionStorage.getItem(key)) {
         sessionStorage.setItem(key, "1");
-        await hit("visits");
+        const visits = await hit("visits");
+        paint({ visits });
       }
     } catch (e) {
       console.warn("[PastelStats] visits:", e);
@@ -60,29 +71,32 @@
 
   async function trackSignup() {
     try {
-      await hit("signups");
+      const signups = await hit("signups");
+      paint({ signups });
     } catch (e) {
-      console.warn("[PastelStats] signups hit:", e);
+      console.warn("[PastelStats] signups:", e);
     }
     await refreshAll();
   }
 
   async function trackSpin() {
     try {
-      await hit("spins");
+      const spins = await hit("spins");
+      paint({ spins });
+      console.log("[PastelStats] spins →", spins);
     } catch (e) {
-      console.warn("[PastelStats] spins hit:", e);
+      console.warn("[PastelStats] spins:", e);
     }
-    await refreshAll();
   }
 
   async function trackScratch() {
     try {
-      await hit("scratches");
+      const scratches = await hit("scratches");
+      paint({ scratches });
+      console.log("[PastelStats] scratches →", scratches);
     } catch (e) {
-      console.warn("[PastelStats] scratches hit:", e);
+      console.warn("[PastelStats] scratches:", e);
     }
-    await refreshAll();
   }
 
   window.PastelStats = {

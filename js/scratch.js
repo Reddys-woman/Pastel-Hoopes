@@ -38,6 +38,7 @@
   let last = null;
   let moves = 0;
   let finished = false;
+  let scratchTracked = false;
 
   function drawCover() {
     ctx.globalCompositeOperation = "source-over";
@@ -159,6 +160,15 @@
     drawing = false;
     canvas.classList.add("done");
 
+    // Count this play once (even if prize save later fails)
+    if (!scratchTracked && window.PastelStats && PastelStats.trackScratch) {
+      scratchTracked = true;
+      try { await PastelStats.trackScratch(); } catch (e) {
+        console.warn("trackScratch failed", e);
+        scratchTracked = false; // allow retry of counter
+      }
+    }
+
     // Allow the scratch animation to finish.
     await new Promise(resolve => setTimeout(resolve, 1100));
 
@@ -198,6 +208,7 @@
           confirmed: true
         })
       );
+
 
       showResult(chosen);
     } catch (error) {
@@ -310,6 +321,7 @@
       // A pending prize stays hidden until scratching finishes.
       chosen = null;
       finished = false;
+      scratchTracked = false;
       moves = 0;
       canvas.classList.remove("done");
       drawCover();
