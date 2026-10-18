@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Our Beautiful Memories | Pastel Hoopes Gallery</title>
+  <meta name="description" content="Photos and videos from the Pastel Hoopes stall and the people who make it special.">
+  <link rel="icon" href="../public/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/decor.css">
+  <link rel="stylesheet" href="../css/gallery.css">
+</head>
+<body>
+
+  <div class="topbar" aria-live="polite">
+    <div class="topbar-track">
+      <span class="topbar-msg is-active">Free shipping on orders over ₹499</span>
+      <span class="topbar-msg">Buy products worth ₹399, Get 1 Free product</span>
+    </div>
+  </div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../index.html" class="brand"><img src="../public/images/logo.png" alt="Pastel Hoopes logo"><span>Pastel Hoopes</span></a>
+      <nav id="menu" class="menu" aria-label="Main">
+        <a href="../index.html#shop">Shop</a>
+        <a href="../index.html#offers">Offers</a>
+        <a href="gallery.html" class="active" aria-current="page">Gallery</a>
+        <a href="../index.html#contact">Contact us</a>
+        <a href="../index.html#about">About us</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="../index.html" class="btn btn-primary nav-signup">Shop now</a>
+        <a href="cart.html" class="cart-link" aria-label="Cart">Cart <span id="cart-count" class="badge">0</span></a>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Gallery</span>
+        <h1>Our Beautiful Memories</h1>
+        <p class="lead">Little moments from our stall, the pretty things we love and the people who make Pastel Hoopes feel like home. Tap any photo or video to take a closer look.</p>
+      </div>
+    </section>
+
+    <section class="gallery-wrap">
+      <div class="container">
+        <div id="gallery-grid" class="gallery-grid"></div>
+      </div>
+    </section>
+
+    <section class="gallery-cta">
+      <div class="container">
+        <h2>Found something you love?</h2>
+        <p class="muted">Bring a little of this home with you.</p>
+        <a href="../index.html#shop" class="btn btn-primary">Shop the collection</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="../index.html" class="brand"><img src="../public/images/logo.png" alt=""><span>Pastel Hoopes</span></a>
+        <p class="muted">Cute hair accessories, made for everyday.</p>
+        <p class="footer-quote">“Sometimes all you need, is just a Hope 🌷!” <span class="footer-quote-attr">~Pastel Hoopes</span></p>
+      </div>
+      <div>
+        <h3>Shop</h3>
+        <a href="../index.html#shop">All products</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="../index.html#offers">Spin &amp; Win</a>
+        <a href="../index.html#offers">Scratch &amp; Win</a>
+        <a href="cart.html">Cart</a>
+      </div>
+      <div>
+        <h3>Other resources</h3>
+        <a href="../index.html">Sign up</a>
+        <a href="../index.html#about">About us</a>
+        <a href="../index.html#shop">Our collection</a>
+      </div>
+      <div class="footer-contact">
+        <h3>Contact</h3>
+        <p><a href="tel:+919211805755">+91 92118 05755</a></p>
+        <p><a href="mailto:info.pastelhopes@gmail.com">info.pastelhopes@gmail.com</a></p>
+        <p class="muted footer-address">Ghanta ghar market, Chandrawal road, near clock tower in front of Attraction chahat makeover, Kamla Nagar, Delhi - 110007</p>
+      </div>
+    </div>
+    <div class="container copyright">© <span id="year"></span> Pastel Hoopes. All rights reserved.</div>
+  </footer>
+
+  <!-- pop-up viewer -->
+  <div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo and video viewer">
+    <button id="lb-close" class="lb-btn" aria-label="Close">×</button>
+    <button id="lb-prev" class="lb-btn" aria-label="Previous">‹</button>
+    <button id="lb-next" class="lb-btn" aria-label="Next">›</button>
+    <div id="lb-stage" class="lb-stage"></div>
+    <div id="lb-counter" class="lb-counter"></div>
+  </div>
+
+  <script src="../js/cart.js"></script>
+  <script src="../js/gallery.js"></script>
+  <script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  (function () {
+    var menu = document.getElementById("menu");
+    var toggle = document.getElementById("menu-toggle");
+    if (toggle && menu) {
+      toggle.addEventListener("click", function () {
+        var open = menu.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", open);
+      });
+      menu.addEventListener("click", function (e) {
+        if (e.target.tagName === "A") menu.classList.remove("open");
+      });
+    }
+    var msgs = Array.prototype.slice.call(document.querySelectorAll(".topbar-msg"));
+    if (msgs.length < 2) return;
+    var i = 0;
+    setInterval(function () {
+      var cur = msgs[i];
+      var next = msgs[(i + 1) % msgs.length];
+      cur.classList.remove("is-active");
+      cur.classList.add("is-leaving");
+      next.classList.remove("is-leaving");
+      next.classList.add("is-active");
+      setTimeout(function () { cur.classList.remove("is-leaving"); }, 400);
+      i = (i + 1) % msgs.length;
+    }, 3500);
+  })();
+  </script>
+</body>
+</html>

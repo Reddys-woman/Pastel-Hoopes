@@ -1,6 +1,5 @@
-
 const SUPABASE_URL = "https://tolntrbxyowrppfzroyv.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__uaHEaG-mipb1hVWljZKhQ_zMwp2YAA"; // Keep your actual key here.
+const SUPABASE_PUBLISHABLE_KEY = "MY_KEY"; // Keep your actual publishable key here (never put service-role key in frontend).
 
 const requestHeaders = {
   "Content-Type": "application/json",
@@ -23,7 +22,6 @@ const PastelLeads = {
     );
 
     let result;
-
     try {
       result = await response.json();
     } catch {
@@ -58,7 +56,6 @@ const PastelPrizeWins = {
     );
 
     let result;
-
     try {
       result = await response.json();
     } catch {
@@ -68,6 +65,39 @@ const PastelPrizeWins = {
     if (!response.ok || !result.success) {
       throw new Error(
         result.error || "We couldn't save your prize. Please try again."
+      );
+    }
+
+    return result;
+  },
+
+  /**
+   * Fetch rewards owned by this WhatsApp number from Supabase (server-side filter).
+   * Requires Edge Function: list-my-rewards
+   */
+  async listMine(whatsapp) {
+    if (!whatsapp) {
+      return { success: true, rewards: [] };
+    }
+    const response = await fetch(
+      `${SUPABASE_URL}/functions/v1/list-my-rewards`,
+      {
+        method: "POST",
+        headers: requestHeaders,
+        body: JSON.stringify({ whatsapp })
+      }
+    );
+
+    let result;
+    try {
+      result = await response.json();
+    } catch {
+      throw new Error("Could not load your rewards. Please try again.");
+    }
+
+    if (!response.ok || !result.success) {
+      throw new Error(
+        result.error || "Could not load your rewards. Please try again."
       );
     }
 

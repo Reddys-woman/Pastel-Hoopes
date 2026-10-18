@@ -1,29 +1,132 @@
 // Shop page logic: products, filters, add to cart with qty stepper.
-// TO REPLACE LATER: swap `image` with a real path like "../public/images/my-clip.jpg".
+// Real product images with multi-image hover carousel.
 const PRODUCTS = [
-  { id: 1, name: "Glass-like transparent Premium Big Claw Clip", category: "Claw Clips", price: 25, tag: "", color: "#E8B4BF" },
-  { id: 2, name: "Glass-like transparent Premium Medium-size Claw clip", category: "Claw Clips", price: 20, tag: "", color: "#F4C6CF" },
-  { id: 3, name: "Cute, adorable mini claw clips, Pack of 5", category: "Claw Clips", price: 15, tag: "Pack of 5", color: "#F9E4E6" },
-  { id: 4, name: "Elegant Hair clip, Shiny dusty yellow color — pair of 2 clips", category: "Hair Clips", price: 20, tag: "Pair of 2", color: "#E8D4A8" },
-  { id: 5, name: "Premium and stylish Black-silver color big hair clips, Pair of 2", category: "Hair Clips", price: 30, tag: "Pair of 2", color: "#5A5A5A" },
-  { id: 6, name: "Standard Quality premium Hair Scrunchy, pair of 2", category: "Scrunchies", price: 25, tag: "Pair of 2", color: "#F4C6CF" },
-  { id: 7, name: "Multiverse Special Hamper — Pair of 6 accessories (Big claw clip, 2 medium claw clips, 2 Scrunchies & Yellow Hair clip)", category: "Hampers", price: 99, tag: "Hamper", color: "#8C3A4F" },
-  { id: 8, name: "Rainbow Claw clip Arena Hamper — Pair of 6 Claw clips (3 Big, 2 Medium, 1 Mini)", category: "Hampers", price: 99, tag: "Hamper", color: "#E8B4BF" },
-  { id: 9, name: "Hair clips voyagers Hamper — Pair of 4 Hair clips (2 Big Black-Silver, 2 Yellow)", category: "Hampers", price: 99, tag: "Hamper", color: "#6B1F33" }
+  {
+    id: 1,
+    name: "Glass-like transparent Premium Big Claw Clip",
+    category: "Claw Clips",
+    price: 25,
+    tag: "",
+    color: "#E8B4BF",
+    images: [
+      "public/images/products/claw-clips/big/01_clear.png",
+      "public/images/products/claw-clips/big/02_dark.png",
+      "public/images/products/claw-clips/big/03_peach.png",
+      "public/images/products/claw-clips/big/04_blue.png",
+      "public/images/products/claw-clips/big/05_amber.png"
+    ]
+  },
+  {
+    id: 2,
+    name: "Glass-like transparent Premium Medium-size Claw clip",
+    category: "Claw Clips",
+    price: 20,
+    tag: "",
+    color: "#F4C6CF",
+    images: [
+      "public/images/products/claw-clips/medium/05_peach.png",
+      "public/images/products/claw-clips/medium/02_pink.png",
+      "public/images/products/claw-clips/medium/01_green.png",
+      "public/images/products/claw-clips/medium/04_yellow.png",
+      "public/images/products/claw-clips/medium/03_gray.png"
+    ]
+  },
+  {
+    id: 3,
+    name: "Cute, adorable mini claw clips, Pack of 5",
+    category: "Claw Clips",
+    price: 15,
+    tag: "Pack of 5",
+    color: "#F9E4E6",
+    images: [
+      "public/images/products/mini-clips/01_blue_stars_pack.png",
+      "public/images/products/mini-clips/02_star_showcase.png"
+    ]
+  },
+  {
+    id: 4,
+    name: "Elegant Hair clip, Shiny dusty yellow color — pair of 2 clips",
+    category: "Hair Clips",
+    price: 20,
+    tag: "Pair of 2",
+    color: "#E8D4A8",
+    images: [
+      "public/images/products/hair-clips/01_yellow_pearl.png"
+    ]
+  },
+  {
+    id: 5,
+    name: "Premium and stylish Black-silver color big hair clips, Pair of 2",
+    category: "Hair Clips",
+    price: 30,
+    tag: "Pair of 2",
+    color: "#5A5A5A",
+    images: [
+      "public/images/products/jewelry/03_black_flower_clear.png",
+      "public/images/products/jewelry/02_black_flower_iridescent.png",
+      "public/images/products/jewelry/01_dark_gem_drops.png",
+      "public/images/products/jewelry/05_dark_gem_multi.png",
+      "public/images/products/jewelry/04_heart_gee_im_full.png"
+    ]
+  },
+  {
+    id: 6,
+    name: "Standard Quality premium Hair Scrunchy, pair of 2",
+    category: "Scrunchies",
+    price: 25,
+    tag: "Pair of 2",
+    color: "#F4C6CF",
+    images: [
+      "public/images/products/scrunchies/scrunchie-5-pink.png",
+      "public/images/products/scrunchies/scrunchie-3-cream.png",
+      "public/images/products/scrunchies/scrunchie-1-champagne.png",
+      "public/images/products/scrunchies/scrunchie-6-sky-blue.png",
+      "public/images/products/scrunchies/scrunchie-4-royal-blue.png",
+      "public/images/products/scrunchies/scrunchie-2-black.png"
+    ]
+  },
+  {
+    id: 7,
+    name: "Multiverse Special Hamper — Pair of 6 accessories (Big claw clip, 2 medium claw clips, 2 Scrunchies & Yellow Hair clip)",
+    category: "Hampers",
+    price: 99,
+    tag: "Hamper",
+    color: "#8C3A4F",
+    images: [
+      "public/images/products/hampers/multiverse_1.png",
+      "public/images/products/hampers/multiverse_2.png"
+    ]
+  },
+  {
+    id: 8,
+    name: "Rainbow Claw clip Arena Hamper — Pair of 6 Claw clips (3 Big, 2 Medium, 1 Mini)",
+    category: "Hampers",
+    price: 99,
+    tag: "Hamper",
+    color: "#E8B4BF",
+    images: [
+      "public/images/products/hampers/rainbow_1.png",
+      "public/images/products/hampers/rainbow_2.png"
+    ]
+  },
+  {
+    id: 9,
+    name: "Hair clips voyagers Hamper — Pair of 4 Hair clips (2 Big Black-Silver, 2 Yellow)",
+    category: "Hampers",
+    price: 99,
+    tag: "Hamper",
+    color: "#6B1F33",
+    images: [
+      "public/images/products/hampers/voyagers_1.png",
+      "public/images/products/hampers/voyagers_2.png"
+    ]
+  }
 ];
 
-function placeholderImage(category, color) {
-  const shapes = {
-    "Claw Clips": `<path d="M60 150 Q150 60 240 150" fill="none" stroke="${color}" stroke-width="30" stroke-linecap="round"/><g stroke="${color}" stroke-width="10" stroke-linecap="round"><path d="M80 160v30M110 140v50M140 132v58M170 132v58M200 140v50M220 160v30"/></g>`,
-    "Hair Clips": `<rect x="60" y="125" width="180" height="50" rx="25" fill="${color}"/><rect x="75" y="138" width="150" height="10" rx="5" fill="#fff" opacity=".45"/>`,
-    "Bows": `<path d="M150 150 L70 100 Q50 150 70 200 Z" fill="${color}"/><path d="M150 150 L230 100 Q250 150 230 200 Z" fill="${color}"/><rect x="132" y="130" width="36" height="40" rx="12" fill="${color}" stroke="#fff" stroke-opacity=".5" stroke-width="4"/>`,
-    "Hampers": `<rect x="70" y="130" width="160" height="110" rx="14" fill="${color}"/><rect x="60" y="105" width="180" height="40" rx="12" fill="${color}" stroke="#fff" stroke-opacity=".5" stroke-width="4"/><rect x="138" y="105" width="24" height="135" fill="#FFF8F2" opacity=".8"/><path d="M150 105 Q110 60 100 95 Q120 110 150 105 Q180 110 200 95 Q190 60 150 105" fill="#FFF8F2" opacity=".9"/>`,
-    "Scrunchies": `<circle cx="150" cy="150" r="62" fill="none" stroke="${color}" stroke-width="36" stroke-dasharray="22 8" stroke-linecap="round"/>`
-  };
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><radialGradient id="g" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#FFF8F2"/><stop offset="1" stop-color="#F9E4E6"/></radialGradient></defs><rect width="300" height="300" fill="url(#g)"/>${shapes[category] || shapes["Claw Clips"]}</svg>`;
-  return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
-}
-PRODUCTS.forEach(p => { p.image = placeholderImage(p.category, p.color); });
+// Ensure every product has a primary image (first in array)
+PRODUCTS.forEach(p => {
+  p.image = p.images && p.images.length ? p.images[0] : "";
+});
 
 const grid = document.getElementById("product-grid");
 const countEl = document.getElementById("result-count");
@@ -47,15 +150,38 @@ function cardControls(p) {
   return `<button class="add-btn" data-id="${p.id}">Add to cart</button>`;
 }
 
+function buildCardImage(p) {
+  const imgs = p.images && p.images.length ? p.images : [p.image];
+  const slides = imgs.map((src, i) =>
+    `<img class="slide${i === 0 ? " active" : ""}" src="${src}" alt="${p.name}" loading="${i === 0 ? "eager" : "lazy"}" data-index="${i}">`
+  ).join("");
+
+  const arrows = imgs.length > 1 ? `
+    <button type="button" class="img-arrow img-prev" aria-label="Previous image">‹</button>
+    <button type="button" class="img-arrow img-next" aria-label="Next image">›</button>
+  ` : "";
+
+  const dots = imgs.length > 1 ? `
+    <div class="img-dots">
+      ${imgs.map((_, i) => `<span class="dot${i === 0 ? " active" : ""}" data-index="${i}"></span>`).join("")}
+    </div>
+  ` : "";
+
+  return `
+    <div class="card-img" data-count="${imgs.length}">
+      <div class="slides-wrap">${slides}</div>
+      ${arrows}
+      ${dots}
+      ${p.tag ? `<span class="tag">${p.tag}</span>` : ""}
+    </div>`;
+}
+
 function renderProducts() {
   const list = PRODUCTS.filter(p => activeCategory === "all" || p.category === activeCategory);
   countEl.textContent = list.length + (list.length === 1 ? " item" : " items");
   grid.innerHTML = list.map(p => `
     <article class="card" data-product-id="${p.id}">
-      <div class="card-img">
-        <img src="${p.image}" alt="${p.name}" loading="lazy">
-        ${p.tag ? `<span class="tag">${p.tag}</span>` : ""}
-      </div>
+      ${buildCardImage(p)}
       <div class="card-body">
         <span class="card-cat">${p.category}</span>
         <h3 class="card-name">${p.name}</h3>
@@ -65,6 +191,76 @@ function renderProducts() {
         </div>
       </div>
     </article>`).join("");
+
+  initImageCarousels();
+}
+
+function initImageCarousels() {
+  document.querySelectorAll(".card-img").forEach(container => {
+    const slides = Array.from(container.querySelectorAll(".slide"));
+    const dots = Array.from(container.querySelectorAll(".dot"));
+    if (slides.length <= 1) return;
+
+    let index = 0;
+    let direction = 1; // 1 = left-to-right (next), -1 = reverse
+    let hoverTimer = null;
+
+    function show(i, animateDir = 1) {
+      const prev = index;
+      index = (i + slides.length) % slides.length;
+
+      slides.forEach((s, n) => {
+        s.classList.remove("active", "from-left", "from-right", "to-left", "to-right");
+        if (n === index) {
+          s.classList.add("active");
+          s.classList.add(animateDir > 0 ? "from-right" : "from-left");
+        } else if (n === prev) {
+          s.classList.add(animateDir > 0 ? "to-left" : "to-right");
+        }
+      });
+      dots.forEach((d, n) => d.classList.toggle("active", n === index));
+    }
+
+    function next() {
+      if (index === slides.length - 1) direction = -1;
+      else if (index === 0) direction = 1;
+      show(index + direction, direction);
+    }
+
+    function prev() {
+      if (index === 0) direction = 1;
+      else if (index === slides.length - 1) direction = -1;
+      show(index - direction, -direction);
+    }
+
+    // Desktop hover: auto-cycle
+    container.addEventListener("mouseenter", () => {
+      hoverTimer = setInterval(next, 1200);
+    });
+    container.addEventListener("mouseleave", () => {
+      clearInterval(hoverTimer);
+      hoverTimer = null;
+      // reset to first image
+      show(0, -1);
+      direction = 1;
+    });
+
+    // Arrows (mobile / tablet / always available)
+    const prevBtn = container.querySelector(".img-prev");
+    const nextBtn = container.querySelector(".img-next");
+    if (prevBtn) prevBtn.addEventListener("click", e => { e.stopPropagation(); prev(); });
+    if (nextBtn) nextBtn.addEventListener("click", e => { e.stopPropagation(); next(); });
+
+    // Dots
+    dots.forEach(d => {
+      d.addEventListener("click", e => {
+        e.stopPropagation();
+        const target = Number(d.dataset.index);
+        const dir = target > index ? 1 : -1;
+        show(target, dir);
+      });
+    });
+  });
 }
 
 function showToast(message) {

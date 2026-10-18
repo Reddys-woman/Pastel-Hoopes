@@ -23,12 +23,13 @@
 
   <header class="nav">
     <div class="container nav-inner">
-      <a href="products.html" class="brand"><img src="../public/images/logo.png" alt="Pastel Hoopes logo"><span>Pastel Hoopes</span></a>
+      <a href="../index.html" class="brand"><img src="../public/images/logo.png" alt="Pastel Hoopes logo"><span>Pastel Hoopes</span></a>
       <nav id="menu" class="menu" aria-label="Main">
-        <a href="products.html#shop">Shop</a>
-        <a href="products.html#offers">Offers</a>
-        <a href="products.html#contact">Contact us</a>
-        <a href="products.html#about">About us</a>
+        <a href="../index.html#shop">Shop</a>
+        <a href="../index.html#offers">Offers</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="../index.html#contact">Contact us</a>
+        <a href="../index.html#about">About us</a>
       </nav>
       <div class="nav-actions">
         <a href="cart.html" class="cart-link" aria-label="Cart" aria-current="page">Cart <span id="cart-count" class="badge">0</span></a>
@@ -47,7 +48,7 @@
         <!-- EMPTY -->
         <div id="cart-empty" class="cart-empty" hidden>
           <p class="muted">Your cart is empty.</p>
-          <a href="products.html#shop" class="btn btn-primary">Shop the collection</a>
+          <a href="../index.html#shop" class="btn btn-primary">Shop the collection</a>
         </div>
 
         <!-- FILLED -->
@@ -59,20 +60,26 @@
           <aside class="cart-summary">
             <h2>Order summary</h2>
 
+            <div id="rewards-panel" class="rewards-panel"></div>
+
             <div class="summary-row">
               <span>Subtotal</span>
               <strong id="cart-subtotal">₹0</strong>
+            </div>
+            <div class="summary-row summary-discount" id="cart-claw-row" hidden>
+              <span>Claw offer <em id="cart-claw-code"></em></span>
+              <strong id="cart-claw-amount">−₹0</strong>
             </div>
             <div class="summary-row" id="cart-coupon-row" hidden>
               <span>Coupon <em id="cart-coupon-code"></em></span>
               <span class="muted">Applied</span>
             </div>
             <div class="summary-row summary-discount" id="cart-discount-row" hidden>
-              <span>Discount</span>
+              <span>% Discount</span>
               <strong id="cart-discount">−₹0</strong>
             </div>
             <div class="summary-row summary-total">
-              <span>Total</span>
+              <span>Total to pay</span>
               <strong id="cart-total">₹0</strong>
             </div>
 
@@ -123,22 +130,23 @@
   <footer class="footer">
     <div class="container footer-grid">
       <div>
-        <a href="products.html" class="brand"><img src="../public/images/logo.png" alt=""><span>Pastel Hoopes</span></a>
+        <a href="../index.html" class="brand"><img src="../public/images/logo.png" alt=""><span>Pastel Hoopes</span></a>
         <p class="muted">Cute hair accessories, made for everyday.</p>
         <p class="footer-quote">“Sometimes all you need, is just a Hope 🌷!” <span class="footer-quote-attr">~Pastel Hoopes</span></p>
       </div>
       <div>
         <h3>Shop</h3>
-        <a href="products.html#shop">All products</a>
-        <a href="products.html#offers">Spin &amp; Win</a>
-        <a href="products.html#offers">Scratch &amp; Win</a>
+        <a href="../index.html#shop">All products</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="../index.html#offers">Spin &amp; Win</a>
+        <a href="../index.html#offers">Scratch &amp; Win</a>
         <a href="cart.html">Cart</a>
       </div>
       <div>
         <h3>Other resources</h3>
-        <a href="products.html">Sign up</a>
-        <a href="products.html#about">About us</a>
-        <a href="products.html#shop">Our collection</a>
+        <a href="../index.html">Sign up</a>
+        <a href="../index.html#about">About us</a>
+        <a href="../index.html#shop">Our collection</a>
       </div>
       <div class="footer-contact">
         <h3>Contact</h3>
