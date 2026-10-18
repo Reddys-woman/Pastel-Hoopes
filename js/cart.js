@@ -84,7 +84,7 @@ function loadLocalRewards() {
         list.push({
           id: source + "-pct-" + code,
           code,
-          label: PCT_CODES[code] + "% off your order",
+          label: PCT_CODES[code] + "% off products (hampers excluded)",
           source,
           type: "percent",
           pct: PCT_CODES[code]
@@ -121,12 +121,19 @@ function findClawTarget(items) {
   return best;
 }
 
+function isHamperItem(item) {
+  const cat = (item.category || "").toLowerCase();
+  const name = (item.name || "").toLowerCase();
+  return cat === "hampers" || name.includes("hamper");
+}
+
 function calculateTotals(items, appliedPct, appliedClaw) {
   const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
   let clawDiscount = 0;
   let clawTargetName = null;
   let clawOriginal = 0;
 
+  // Claw offer — only non-hamper claw clips
   if (appliedClaw) {
     const target = findClawTarget(items);
     if (target) {
@@ -136,18 +143,29 @@ function calculateTotals(items, appliedPct, appliedClaw) {
     }
   }
 
-  const otherSubtotal = Math.max(
+  // Hampers are NEVER discounted — always full price (₹99)
+  const hamperSubtotal = items
+    .filter(isHamperItem)
+    .reduce((s, i) => s + i.price * i.qty, 0);
+
+  // Everything else (non-hamper), minus the one claw unit that got the ₹15 deal
+  const nonHamperSubtotal = subtotal - hamperSubtotal;
+  const discountableSubtotal = Math.max(
     0,
-    subtotal - (appliedClaw && clawDiscount > 0 ? clawOriginal : 0)
+    nonHamperSubtotal - (appliedClaw && clawDiscount > 0 ? clawOriginal : 0)
   );
+
+  // % coupon only applies to non-hamper products
   let pctDiscount = 0;
   if (appliedPct && appliedPct.pct > 0) {
-    pctDiscount = Math.round(otherSubtotal * appliedPct.pct / 100);
+    pctDiscount = Math.round(discountableSubtotal * appliedPct.pct / 100);
   }
 
   const payable = Math.max(
     0,
-    otherSubtotal - pctDiscount + (appliedClaw && clawDiscount > 0 ? 15 : 0)
+    discountableSubtotal - pctDiscount
+      + (appliedClaw && clawDiscount > 0 ? 15 : 0)
+      + hamperSubtotal          // hampers always full price
   );
 
   return {
@@ -222,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => Cart.updateBadge());
     const hasClawItem = !!findClawTarget(items);
 
     let html = `<div class="rewards-box"><h3>Your rewards</h3>
-      <p class="muted small rewards-hint">Pick one % coupon. You can also add Claw clip @ ₹15 if you have that offer and a claw clip in the cart.</p>`;
+      <p class="muted small rewards-hint">Pick one % coupon (applies to products only — hampers stay ₹99). You can also add Claw clip @ ₹15 if you have that offer and a claw clip in the cart.</p>`;
 
     if (pctList.length) {
       html += `<div class="reward-group"><p class="reward-group-title">Percentage off</p>`;
@@ -378,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => Cart.updateBadge());
       lines.push(`Coupon ${totals.clawCode} — Claw clip @ 15 inr (save ${totals.clawDiscount} inr)`);
     }
     if (totals.pctDiscount > 0 && totals.pctCode) {
-      lines.push(`Coupon ${totals.pctCode} — ${totals.pctValue}% off other products (save ${totals.pctDiscount} inr)`);
+      lines.push(`Coupon ${totals.pctCode} — ${totals.pctValue}% off products only, hampers excluded (save ${totals.pctDiscount} inr)`);
     }
     lines.push(`Total to pay = ${totals.total} inr`);
     lines.push("");
