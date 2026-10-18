@@ -1,5 +1,5 @@
 const SUPABASE_URL = "https://tolntrbxyowrppfzroyv.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "MY_KEY"; // Keep your actual publishable key here (never put service-role key in frontend).
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__uaHEaG-mipb1hVWljZKhQ_zMwp2YAA"; // Keep your actual publishable key here (never put service-role key in frontend).
 
 const requestHeaders = {
   "Content-Type": "application/json",
