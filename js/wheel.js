@@ -198,6 +198,10 @@
         spinning = false;
         spinBtn.disabled = false;
         spinBtn.textContent = "Spin the wheel";
+        // Count this completed spin for site traction
+        if (window.PastelStats && PastelStats.trackSpin) {
+          try { PastelStats.trackSpin(); } catch (_) {}
+        }
       }
     }, 5300);
   });
